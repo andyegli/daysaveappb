@@ -1,4 +1,4 @@
-# Social Content CMS
+# daysave.app, a content curateros dream
 
 A web application for collecting and organizing social media content. Users can save, tag, and manage URLs to social media posts with custom titles, tags, and comments.
 
@@ -48,13 +48,14 @@ cp .env.example .env
 ```
 CREATE DATABASE social_content_cms;
 ```
+Note: Tables are created by Sqeualise
 
 5. Start the development server
 ```
 npm run dev
 ```
 
-6. Visit `http://localhost:5000` in your browser
+6. Visit `http://localhost:5001` in your browser
 
 ## Project Structure
 
