@@ -1,0 +1,94 @@
+<div class="row">
+  <div class="col-lg-8 offset-lg-2">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body p-4">
+        <h1 class="h3 mb-4">Add New Content</h1>
+        
+        <form action="/content" method="POST">
+          <div class="mb-3">
+            <label for="url" class="form-label">URL <span class="text-danger">*</span></label>
+            <input 
+              type="url" 
+              class="form-control" 
+              id="url" 
+              name="url" 
+              placeholder="https://twitter.com/username/status/123456789"
+              value="<%= typeof content !== 'undefined' ? content.url : '' %>"
+              required
+            >
+            <div class="form-text">Enter the URL of the social media post</div>
+          </div>
+          
+          <div class="mb-3">
+            <label for="title" class="form-label">Title <span class="text-danger">*</span></label>
+            <input 
+              type="text" 
+              class="form-control" 
+              id="title" 
+              name="title" 
+              placeholder="Enter a title for this content"
+              value="<%= typeof content !== 'undefined' ? content.title : '' %>"
+              required
+            >
+          </div>
+          
+          <div class="mb-3">
+            <label for="comment" class="form-label">Comment</label>
+            <textarea 
+              class="form-control" 
+              id="comment" 
+              name="comment" 
+              rows="3" 
+              placeholder="Add your notes about this content"
+            ><%= typeof content !== 'undefined' ? content.comment : '' %></textarea>
+          </div>
+          
+          <div class="mb-3">
+            <label class="form-label">Tags</label>
+            <div class="card">
+              <div class="card-body">
+                <div class="mb-3">
+                  <label class="form-label">Select Existing Tags</label>
+                  <div class="tag-checkboxes">
+                    <% if(tags && tags.length > 0) { %>
+                      <% tags.forEach(tag => { %>
+                        <div class="form-check form-check-inline">
+                          <input 
+                            class="form-check-input" 
+                            type="checkbox" 
+                            name="tags" 
+                            value="<%= tag.id %>" 
+                            id="tag<%= tag.id %>"
+                          >
+                          <label class="form-check-label" for="tag<%= tag.id %>"><%= tag.name %></label>
+                        </div>
+                      <% }); %>
+                    <% } else { %>
+                      <p class="text-muted">No existing tags</p>
+                    <% } %>
+                  </div>
+                </div>
+                
+                <div>
+                  <label for="newTags" class="form-label">Add New Tags</label>
+                  <input 
+                    type="text" 
+                    class="form-control" 
+                    id="newTags" 
+                    name="newTags" 
+                    placeholder="Enter tags separated by commas (e.g., design, inspiration, tutorial)"
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a href="/content" class="btn btn-outline-secondary">Cancel</a>
+            <button type="submit" class="btn btn-primary">Save Content</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

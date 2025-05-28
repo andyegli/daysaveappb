@@ -1,0 +1,105 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1 class="h3 mb-0"><%= archived ? 'Archived Content' : 'Content Management' %></h1>
+  <div>
+    <a href="/content/add" class="btn btn-primary">
+      <i class="fas fa-plus me-1"></i> Add Content
+    </a>
+    <a href="/content<%= archived ? '' : '?archived=true' %>" class="btn btn-outline-secondary ms-2">
+      <i class="fas fa-<%= archived ? 'list' : 'archive' %> me-1"></i> 
+      <%= archived ? 'Active Content' : 'View Archive' %>
+    </a>
+  </div>
+</div>
+
+<div class="card border-0 shadow-sm mb-4">
+  <div class="card-body">
+    <form action="/content" method="GET" class="row g-3">
+      <div class="col-md-5">
+        <div class="input-group">
+          <span class="input-group-text"><i class="fas fa-search"></i></span>
+          <input type="text" name="search" class="form-control" placeholder="Search by title" value="<%= search %>">
+        </div>
+      </div>
+      <div class="col-md-4">
+        <select name="tag" class="form-select">
+          <option value="">All Tags</option>
+          <% tags.forEach(tag => { %>
+            <option value="<%= tag.name %>" <%= tag === tag.name ? 'selected' : '' %>><%= tag.name %></option>
+          <% }); %>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <input type="hidden" name="archived" value="<%= archived %>">
+        <button type="submit" class="btn btn-secondary w-100">Filter</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<% if (content && content.length > 0) { %>
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-4">
+    <% content.forEach(item => { %>
+      <div class="col">
+        <div class="card h-100 border-0 shadow-sm content-card">
+          <div class="card-body">
+            <h5 class="card-title text-truncate" title="<%= item.title %>"><%= item.title %></h5>
+            <p class="card-text small text-truncate">
+              <a href="<%= item.url %>" target="_blank" class="text-decoration-none">
+                <%= item.url %>
+              </a>
+            </p>
+            <% if (item.comment) { %>
+              <p class="card-text"><%= item.comment %></p>
+            <% } %>
+            
+            <div class="mb-3">
+              <% if (item.Tags && item.Tags.length > 0) { %>
+                <% item.Tags.forEach(tag => { %>
+                  <span class="badge bg-secondary me-1"><%= tag.name %></span>
+                <% }); %>
+              <% } %>
+            </div>
+            
+            <div class="text-muted small mb-3">
+              Added: <%= new Date(item.createdAt).toLocaleDateString() %>
+            </div>
+            
+            <div class="d-flex justify-content-between">
+              <a href="/content/edit/<%= item.id %>" class="btn btn-sm btn-outline-primary">
+                <i class="fas fa-edit"></i> Edit
+              </a>
+              <div>
+                <form action="/content/archive/<%= item.id %>?_method=PUT" method="POST" class="d-inline">
+                  <button type="submit" class="btn btn-sm btn-outline-secondary">
+                    <i class="fas fa-<%= item.isArchived ? 'box-archive' : 'archive' %>"></i>
+                    <%= item.isArchived ? 'Unarchive' : 'Archive' %>
+                  </button>
+                </form>
+                <form action="/content/<%= item.id %>?_method=DELETE" method="POST" class="d-inline ms-1">
+                  <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure you want to delete this item?')">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% }); %>
+  </div>
+<% } else { %>
+  <div class="card border-0 shadow-sm">
+    <div class="card-body text-center py-5">
+      <i class="fas fa-folder-open text-muted display-1 mb-3"></i>
+      <h3 class="h5">No content found</h3>
+      <p class="text-muted">
+        <%= archived ? 'Your archive is empty.' : 'Add your first social media content to get started.' %>
+      </p>
+      <% if (!archived) { %>
+        <a href="/content/add" class="btn btn-primary mt-2">
+          <i class="fas fa-plus me-1"></i> Add Content
+        </a>
+      <% } %>
+    </div>
+  </div>
+<% } %>

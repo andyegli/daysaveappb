@@ -1,0 +1,61 @@
+<div class="row">
+  <div class="col-12">
+    <div class="card border-0 shadow-sm mb-4">
+      <div class="card-body">
+        <h1 class="h4 mb-0">Welcome, <%= user.name %></h1>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-md-4">
+    <div class="card border-0 shadow-sm mb-4">
+      <div class="card-body text-center">
+        <div class="display-1 text-primary mb-3">
+          <i class="fas fa-link"></i>
+        </div>
+        <h3 class="h5 mb-3">Manage Content</h3>
+        <p class="mb-4">View, edit, and manage your saved content</p>
+        <a href="/content" class="btn btn-primary">Go to Content</a>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-md-4">
+    <div class="card border-0 shadow-sm mb-4">
+      <div class="card-body text-center">
+        <div class="display-1 text-primary mb-3">
+          <i class="fas fa-plus-circle"></i>
+        </div>
+        <h3 class="h5 mb-3">Add New Content</h3>
+        <p class="mb-4">Save a new social media post</p>
+        <a href="/content/add" class="btn btn-primary">Add Content</a>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-md-4">
+    <div class="card border-0 shadow-sm mb-4">
+      <div class="card-body text-center">
+        <div class="display-1 text-primary mb-3">
+          <i class="fas fa-archive"></i>
+        </div>
+        <h3 class="h5 mb-3">Archived Content</h3>
+        <p class="mb-4">View your archived content</p>
+        <a href="/content?archived=true" class="btn btn-primary">View Archive</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-2">
+  <div class="col-12">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body">
+        <h2 class="h5 mb-4">Recent Activity</h2>
+        <div class="recent-activity">
+          <p class="text-muted text-center py-5">Your recent activity will appear here</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
